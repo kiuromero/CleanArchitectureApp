@@ -6,19 +6,19 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
-public class AuthTests : IClassFixture<WebApplicationFactory<Program>>
+public class AuthTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client;
 
-    public AuthTests(WebApplicationFactory<Program> factory)
+    public AuthTests(CustomWebApplicationFactory factory)
     {
         // Seed before creating the client so the test server has the user in the database
-        SeedUser(factory);
+        //SeedUser(factory);
 
         _client = factory.CreateClient();
     }
 
-    private void SeedUser(WebApplicationFactory<Program> factory)
+    private void SeedUser(CustomWebApplicationFactory factory)
     {
         using var scope = factory.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
